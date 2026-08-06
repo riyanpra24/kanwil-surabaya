@@ -16,15 +16,15 @@ class ComposerStaticInite7052c095188fc62a7115588dbf778bd
     );
 
     public static $prefixLengthsPsr4 = array (
-        'U' =>
+        'U' => 
         array (
             'Utils\\' => 6,
         ),
-        'S' =>
+        'S' => 
         array (
             'ShipMonk\\PHPStan\\Baseline\\' => 26,
         ),
-        'P' =>
+        'P' => 
         array (
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
@@ -34,123 +34,123 @@ class ComposerStaticInite7052c095188fc62a7115588dbf778bd
             'PHPStan\\ExtensionInstaller\\' => 27,
             'PHPStan\\' => 8,
         ),
-        'N' =>
+        'N' => 
         array (
             'Nexus\\PHPUnit\\Tachycardia\\' => 26,
             'Nette\\' => 6,
         ),
-        'L' =>
+        'L' => 
         array (
             'Laminas\\Escaper\\' => 16,
         ),
-        'K' =>
+        'K' => 
         array (
             'Kint\\' => 5,
         ),
-        'F' =>
+        'F' => 
         array (
             'Fidry\\CpuCoreCounter\\' => 21,
             'Faker\\' => 6,
         ),
-        'D' =>
+        'D' => 
         array (
             'DeepCopy\\' => 9,
         ),
-        'C' =>
+        'C' => 
         array (
             'CodeIgniter\\PHPStan\\' => 20,
             'CodeIgniter\\' => 12,
         ),
-        'B' =>
+        'B' => 
         array (
             'Boundwize\\StructArmed\\' => 22,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Utils\\' =>
+        'Utils\\' => 
         array (
             0 => __DIR__ . '/../..' . '/utils/src',
         ),
-        'ShipMonk\\PHPStan\\Baseline\\' =>
+        'ShipMonk\\PHPStan\\Baseline\\' => 
         array (
             0 => __DIR__ . '/..' . '/shipmonk/phpstan-baseline-per-identifier/src',
         ),
-        'Psr\\Log\\' =>
+        'Psr\\Log\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/log/src',
         ),
-        'Psr\\Http\\Message\\' =>
+        'Psr\\Http\\Message\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/http-message/src',
         ),
-        'Psr\\Container\\' =>
+        'Psr\\Container\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/container/src',
         ),
-        'Predis\\' =>
+        'Predis\\' => 
         array (
             0 => __DIR__ . '/..' . '/predis/predis/src',
         ),
-        'PhpParser\\' =>
+        'PhpParser\\' => 
         array (
             0 => __DIR__ . '/..' . '/nikic/php-parser/lib/PhpParser',
         ),
-        'PHPStan\\ExtensionInstaller\\' =>
+        'PHPStan\\ExtensionInstaller\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/extension-installer/src',
         ),
-        'PHPStan\\' =>
+        'PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpstan/phpstan-strict-rules/src',
         ),
-        'Nexus\\PHPUnit\\Tachycardia\\' =>
+        'Nexus\\PHPUnit\\Tachycardia\\' => 
         array (
             0 => __DIR__ . '/..' . '/nexusphp/tachycardia/src',
         ),
-        'Nette\\' =>
+        'Nette\\' => 
         array (
             0 => __DIR__ . '/..' . '/nette/neon/src',
         ),
-        'Laminas\\Escaper\\' =>
+        'Laminas\\Escaper\\' => 
         array (
             0 => __DIR__ . '/..' . '/laminas/laminas-escaper/src',
         ),
-        'Kint\\' =>
+        'Kint\\' => 
         array (
             0 => __DIR__ . '/..' . '/kint-php/kint/src',
         ),
-        'Fidry\\CpuCoreCounter\\' =>
+        'Fidry\\CpuCoreCounter\\' => 
         array (
             0 => __DIR__ . '/..' . '/fidry/cpu-core-counter/src',
         ),
-        'Faker\\' =>
+        'Faker\\' => 
         array (
             0 => __DIR__ . '/..' . '/fakerphp/faker/src/Faker',
         ),
-        'DeepCopy\\' =>
+        'DeepCopy\\' => 
         array (
             0 => __DIR__ . '/..' . '/myclabs/deep-copy/src/DeepCopy',
         ),
-        'CodeIgniter\\PHPStan\\' =>
+        'CodeIgniter\\PHPStan\\' => 
         array (
             0 => __DIR__ . '/..' . '/codeigniter/phpstan-codeigniter/src',
         ),
-        'CodeIgniter\\' =>
+        'CodeIgniter\\' => 
         array (
             0 => __DIR__ . '/../..' . '/system',
             1 => __DIR__ . '/../..' . '/tests/system',
         ),
-        'Boundwize\\StructArmed\\' =>
+        'Boundwize\\StructArmed\\' => 
         array (
             0 => __DIR__ . '/..' . '/boundwize/structarmed/src',
         ),
     );
 
     public static $prefixesPsr0 = array (
-        'o' =>
+        'o' => 
         array (
-            'org\\bovigo\\vfs\\' =>
+            'org\\bovigo\\vfs\\' => 
             array (
                 0 => __DIR__ . '/..' . '/mikey179/vfsstream/src/main/php',
             ),
