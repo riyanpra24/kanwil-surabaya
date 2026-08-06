@@ -1,0 +1,16 @@
+# Environment
+.env
+
+# Writable directory (logs, cache, sessions, debugbar)
+writable/logs/
+writable/cache/
+writable/session/
+writable/debugbar/
+writable/uploads/
+
+# Vendor
+vendor/
+
+# OS
+.DS_Store
+Thumbs.db
