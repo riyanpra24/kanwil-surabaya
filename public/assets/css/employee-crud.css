@@ -1,0 +1,49 @@
+.employee-add { border: 0; cursor: pointer; font-family: inherit; }
+.employee-filters label { max-width: 430px; }
+.employee-filters select { max-width: 210px; }
+.employee-table table { min-width: 880px; table-layout: fixed; }
+.employee-table th:nth-child(1) { width: 17%; }
+.employee-table th:nth-child(2) { width: 13%; }
+.employee-table th:nth-child(3) { width: 12%; }
+.employee-table th:nth-child(4) { width: 14%; }
+.employee-table th:nth-child(5) { width: 12%; }
+.employee-table th:nth-child(6) { width: 17%; }
+.employee-table th:nth-child(7) { width: 15%; }
+.employee-table td { padding: 9px 10px; overflow-wrap: anywhere; }
+.employee-table td strong { line-height: 1.35; }
+.employee-table .actions { gap: 4px; flex-wrap: nowrap; white-space: nowrap; }
+.employee-table .actions a,
+.employee-table .actions button { flex: none; padding: 5px 6px; font-size: 7px; }
+.employee-status { display: inline-flex; padding: 5px 7px; border-radius: 20px; background: #edf2f7; color: #66758a; font-size: 7px; font-weight: 800; }
+.employee-status.permanent { background: #e5f7f0; color: #147658; }
+.employee-status.contract { background: #ebf4ff; color: #0769c9; }
+.employee-status.outsourcing { background: #fff1de; color: #ad6717; }
+.employee-status.intern { background: #f2ecff; color: #7047b7; }
+.pagination-left { display: flex; align-items: center; gap: 15px; }
+.pagination-left form,
+.pagination-left label { display: flex; align-items: center; gap: 6px; margin: 0; }
+.pagination-left label { color: #748197; font-size: 8px; }
+.pagination-left select { height: 30px; padding: 0 25px 0 9px; border: 1px solid #dfe7f0; border-radius: 7px; background: #fff; color: #17223d; font: 700 8px Manrope,sans-serif; cursor: pointer; }
+.employee-edit-pane { display: none; }
+.employee-modal.mode-edit .employee-view-pane { display: none; }
+.employee-modal.mode-edit .employee-edit-pane { display: block; }
+.employee-detail-list { grid-template-columns: repeat(3,1fr); }
+.employee-detail-list > div.wide { grid-column: span 2; }
+.employee-form-grid { grid-template-columns: repeat(3,1fr); }
+.employee-form-grid label.wide { grid-column: span 2; }
+
+@media (max-width: 850px) {
+    .employee-filters { flex-wrap: wrap; }
+    .employee-filters label { flex-basis: 100%; max-width: none; }
+    .employee-filters select { flex: 1; max-width: none; }
+}
+
+@media (max-width: 620px) {
+    .crud-pagination,
+    .pagination-left { align-items: flex-start; gap: 10px; }
+    .pagination-left { flex-direction: column; }
+    .employee-detail-list,
+    .employee-form-grid { grid-template-columns: 1fr; }
+    .employee-detail-list > div.wide,
+    .employee-form-grid label.wide { grid-column: auto; }
+}

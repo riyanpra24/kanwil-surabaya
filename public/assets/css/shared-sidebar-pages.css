@@ -1,0 +1,37 @@
+.has-shared-sidebar .crud-shell,
+.has-shared-sidebar .shared-page-shell {
+    min-height: 100vh;
+    margin-left: 245px;
+}
+
+.has-shared-sidebar .form-topbar {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 0 30px;
+}
+
+.shared-sidebar-toggle {
+    display: none;
+    margin-right: 2px;
+    border: 0;
+    background: transparent;
+    color: #17223d;
+    font: inherit;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+@media (max-width: 800px) {
+    .has-shared-sidebar .crud-shell,
+    .has-shared-sidebar .shared-page-shell {
+        margin-left: 0;
+    }
+
+    .has-shared-sidebar .crud-menu-toggle,
+    .shared-sidebar-toggle {
+        display: block;
+    }
+}

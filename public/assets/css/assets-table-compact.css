@@ -1,0 +1,105 @@
+.crud-table-wrap table {
+    width: 100%;
+    min-width: 0;
+    table-layout: fixed;
+}
+
+.crud-table-wrap th,
+.crud-table-wrap td {
+    padding: 9px 8px;
+}
+
+.crud-table-wrap th:nth-child(1),
+.crud-table-wrap td:nth-child(1) { width: 27%; }
+.crud-table-wrap th:nth-child(2),
+.crud-table-wrap td:nth-child(2) { width: 10%; }
+.crud-table-wrap th:nth-child(3),
+.crud-table-wrap td:nth-child(3) { width: 16%; }
+.crud-table-wrap th:nth-child(4),
+.crud-table-wrap td:nth-child(4) { width: 14%; }
+.crud-table-wrap th:nth-child(5),
+.crud-table-wrap td:nth-child(5) { width: 7%; }
+.crud-table-wrap th:nth-child(6),
+.crud-table-wrap td:nth-child(6) { width: 13%; }
+.crud-table-wrap th:nth-child(7),
+.crud-table-wrap td:nth-child(7) { width: 13%; }
+
+.crud-table-wrap td:first-child {
+    max-width: none;
+    overflow-wrap: anywhere;
+}
+
+.crud-table-wrap td:first-child strong {
+    line-height: 1.35;
+}
+
+.crud-table-wrap .group-chip,
+.crud-table-wrap .status {
+    display: inline-flex;
+    max-width: 100%;
+    white-space: normal;
+    line-height: 1.25;
+}
+
+.crud-table-wrap .actions {
+    gap: 4px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.crud-table-wrap .actions a,
+.crud-table-wrap .actions button {
+    flex: none;
+    padding: 5px 6px;
+    font-size: 7px;
+}
+
+.crud-table-wrap .actions form {
+    flex: none;
+}
+
+@media (max-width: 1050px) {
+    .crud-table-wrap table { min-width: 820px; }
+}
+
+.pagination-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination-left form,
+.pagination-left label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0;
+}
+
+.pagination-left label {
+    color: #748197;
+    font-size: 8px;
+}
+
+.pagination-left select {
+    height: 30px;
+    padding: 0 25px 0 9px;
+    border: 1px solid #dfe7f0;
+    border-radius: 7px;
+    background: #fff;
+    color: #17223d;
+    font: 700 8px Manrope, sans-serif;
+    cursor: pointer;
+}
+
+@media (max-width: 620px) {
+    .crud-pagination,
+    .pagination-left {
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .pagination-left {
+        flex-direction: column;
+    }
+}
