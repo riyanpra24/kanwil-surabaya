@@ -24,7 +24,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "php -S 0.0.0.0:5000 -t public public/index.php"
+args = "php -S 0.0.0.0:5000 -t public"
 waitForPort = 5000
 
 [[ports]]
@@ -33,4 +33,4 @@ externalPort = 80
 
 [deployment]
 deploymentTarget = "autoscale"
-run = ["php", "-S", "0.0.0.0:5000", "-t", "public", "public/index.php"]
+run = ["php", "-S", "0.0.0.0:5000", "-t", "public"]

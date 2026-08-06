@@ -12,7 +12,7 @@ A PHP web application built on the CodeIgniter 4 framework. The app includes a l
 ## Running the App
 The app is served using PHP's built-in development server:
 ```
-php -S 0.0.0.0:5000 -t public public/index.php
+php -S 0.0.0.0:5000 -t public
 ```
 This is configured as the **"Start application"** workflow in Replit.
 
