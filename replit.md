@@ -45,7 +45,7 @@ php -S 0.0.0.0:5000 -t public
 
 > **Catatan keamanan:** Gunakan password minimal 16 karakter yang terdiri dari kombinasi huruf besar, huruf kecil, angka, dan simbol. Jangan pernah simpan password plaintext — hanya hash bcrypt-nya saja.
 
-## Deploy ke Hosting (Apache/cPanel)
+## Deploy ke Hosting (Reserved VM / Apache/cPanel)
 Langkah-langkah deployment ke shared hosting:
 
 1. Upload **semua file** kecuali `.git/` dan `.codex-tmp/`
@@ -56,13 +56,24 @@ Langkah-langkah deployment ke shared hosting:
    CI_ENVIRONMENT = production
    app.baseURL = https://domain-anda.com/
    encryption.key = hex2bin:GENERATE_DENGAN_php_spark_key_generate
+   ADMIN_USERNAME = admin
+   ADMIN_PASSWORD_HASH = $2y$10$...hash...
    ```
-5. Generate encryption key dengan perintah:
-   ```
-   php spark key:generate
-   ```
-   Lalu masukkan hasilnya ke `.env`
-6. Pastikan PHP 8.2+ dengan ekstensi: `pdo_sqlite`, `mbstring`, `intl`, `zip`
+5. Generate encryption key: `php spark key:generate`
+6. Generate password hash baru: `php -r "echo password_hash('password_baru', PASSWORD_BCRYPT);"`
+7. Pastikan PHP 8.2+ dengan ekstensi: `pdo_sqlite`, `mbstring`, `intl`, `zip`
+
+## Backup Database SQLite
+Database SQLite (`writable/assets.sqlite`) berisi semua data live (aset, karyawan, endpoint).
+**Wajib backup sebelum deploy ulang** agar data tidak tertimpa:
+
+```bash
+bash scripts/backup-db.sh
+```
+
+Backup disimpan di `writable/backups/` dengan nama berisi timestamp, dan otomatis dihapus setelah 30 hari.
+
+> **Catatan:** File `assets.sqlite` sengaja di-track di git agar data awal tersedia saat deploy pertama ke server baru. Backup folder `writable/backups/` dikecualikan dari git.
 
 ## Struktur Penting
 ```

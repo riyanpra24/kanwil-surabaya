@@ -40,3 +40,7 @@ build = ["composer", "install", "--no-dev", "--optimize-autoloader", "--no-scrip
 
 [userenv.shared]
 CI_ENVIRONMENT = "production"
+
+[postMerge]
+path = "scripts/post-merge.sh"
+timeoutMs = 60000

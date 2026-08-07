@@ -7,6 +7,12 @@ writable/cache/
 writable/session/
 writable/debugbar/
 writable/uploads/
+writable/backups/
+
+# Database SQLite — file ini berisi data live.
+# Sengaja di-track di git agar data awal tersedia saat deploy pertama.
+# SEBELUM deploy ulang, jalankan: bash scripts/backup-db.sh
+# writable/assets.sqlite
 
 # Vendor
 vendor/
