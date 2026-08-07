@@ -26,20 +26,6 @@ class Encryption extends BaseConfig
      */
     public string $key = '';
 
-    public function __construct()
-    {
-        parent::__construct();
-
-        // Read encryption key from APP_ENCRYPTION_KEY environment variable.
-        // Set this in Replit Secrets or .env on hosting:
-        //   APP_ENCRYPTION_KEY = hex2bin:YOUR_KEY_HERE
-        // Generate a new key with: php spark key:generate --show
-        $envKey = (string) getenv('APP_ENCRYPTION_KEY');
-        if ($envKey !== '') {
-            $this->key = $envKey;
-        }
-    }
-
     /**
      * --------------------------------------------------------------------------
      * Previous Encryption Keys

@@ -74,6 +74,15 @@ chdir(FCPATH);
  * and fires up an environment-specific bootstrapping.
  */
 
+// MAP APP_ENCRYPTION_KEY → encryption_key (same mapping as public/index.php)
+$_appEncKey = getenv('APP_ENCRYPTION_KEY');
+if ($_appEncKey !== false && $_appEncKey !== '') {
+    putenv("encryption_key={$_appEncKey}");
+    $_ENV['encryption_key']    = $_appEncKey;
+    $_SERVER['encryption_key'] = $_appEncKey;
+}
+unset($_appEncKey);
+
 // LOAD OUR PATHS CONFIG FILE
 // This is the line that might need to be changed, depending on your folder structure.
 require FCPATH . '../app/Config/Paths.php';

@@ -30,6 +30,7 @@ php -S 0.0.0.0:5000 -t public
 - Database: tidak perlu konfigurasi MySQL; app menggunakan SQLite langsung
 - `ADMIN_USERNAME` — username login admin (simpan sebagai Replit Secret)
 - `ADMIN_PASSWORD_HASH` — bcrypt hash dari password admin (simpan sebagai Replit Secret)
+- `APP_ENCRYPTION_KEY` — encryption key CI4 format `hex2bin:...` (simpan sebagai Replit Secret). Generate dengan: `php spark key:generate --show`
 
 ### Cara Mengganti Password Admin
 

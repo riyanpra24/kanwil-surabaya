@@ -46,6 +46,25 @@ if (getcwd() . DIRECTORY_SEPARATOR !== FCPATH) {
  * and fires up an environment-specific bootstrapping.
  */
 
+/*
+ *---------------------------------------------------------------
+ * MAP APP_ENCRYPTION_KEY → encryption_key
+ *---------------------------------------------------------------
+ * Replit Secrets (and most CI/CD systems) cannot use dots in
+ * environment variable names, so the key is stored as
+ * APP_ENCRYPTION_KEY. CI4's BaseConfig reads `encryption_key`
+ * (the underscore form of `encryption.key`). We map the value
+ * here, before the framework boots, so CI4's native env parsing
+ * and hex2bin: decoding work without any custom config code.
+ */
+$_appEncKey = getenv('APP_ENCRYPTION_KEY');
+if ($_appEncKey !== false && $_appEncKey !== '') {
+    putenv("encryption_key={$_appEncKey}");
+    $_ENV['encryption_key']    = $_appEncKey;
+    $_SERVER['encryption_key'] = $_appEncKey;
+}
+unset($_appEncKey);
+
 // LOAD OUR PATHS CONFIG FILE
 // This is the line that might need to be changed, depending on your folder structure.
 require FCPATH . '../app/Config/Paths.php';
