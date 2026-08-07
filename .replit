@@ -32,7 +32,7 @@ localPort = 5000
 externalPort = 80
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "vm"
 run = ["php", "-S", "0.0.0.0:5000", "-t", "public"]
 build = ["composer", "install", "--no-dev", "--optimize-autoloader", "--no-scripts"]
 
