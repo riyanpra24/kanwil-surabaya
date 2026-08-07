@@ -20,6 +20,9 @@ class Encryption extends BaseConfig
      * If you use the Encryption class you must set an encryption key (seed).
      * You need to ensure it is long enough for the cipher and mode you plan to use.
      * See the user guide for more info.
+     *
+     * Set via environment variable APP_ENCRYPTION_KEY (hex2bin:... format) or
+     * via .env file as: encryption.key = hex2bin:YOUR_KEY_HERE
      */
     public string $key = '';
 

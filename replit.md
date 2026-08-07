@@ -1,41 +1,73 @@
-# CodeIgniter 4 Project
+# Sistem Manajemen Aset & SDM — Jamkrindo
 
 ## Overview
-A PHP web application built on the CodeIgniter 4 framework. The app includes a login page with Indonesian-language UI, suggesting it's a custom application built on top of CI4.
+Aplikasi web internal berbasis **CodeIgniter 4** untuk manajemen aset IT, data karyawan, dan monitoring endpoint jaringan kantor Jamkrindo Kanwil Jawa Timur.
 
 ## Stack
 - **Language:** PHP 8.2
-- **Framework:** CodeIgniter 4
-- **Dependencies:** Managed via Composer (`composer.json` / `composer.lock`)
-- **Web root:** `public/` (contains `index.php` entry point)
+- **Framework:** CodeIgniter 4.7.x
+- **Database:** SQLite 3 (file: `writable/assets.sqlite`) — diakses via PDO langsung
+- **Web root:** `public/`
+- **Dependencies:** Composer (`vendor/` sudah ada, tidak perlu install ulang)
 
-## Running the App
-The app is served using PHP's built-in development server:
+## Fitur Utama
+- Login dengan satu akun admin (kredensial di `app/Controllers/Auth.php`)
+- Dashboard ringkasan aset & SDM
+- CRUD Data Aset IT
+- CRUD Data Karyawan per unit/cabang
+- CRUD & Monitoring Endpoint (komputer/laptop) per unit
+- Export monitoring endpoint ke Excel (.xlsx)
+
+## Menjalankan Aplikasi (Replit)
+Workflow **"Start application"** sudah dikonfigurasi:
 ```
 php -S 0.0.0.0:5000 -t public
 ```
-This is configured as the **"Start application"** workflow in Replit.
 
-## Configuration
-- Copy `env` → `.env` and edit values as needed
-- Key `.env` settings:
-  - `CI_ENVIRONMENT` — set to `development` for debug mode, `production` for live
-  - `app.baseURL` — must be a full URL (e.g. `https://your-domain.replit.dev/`)
-  - `database.*` — configure if the app uses a database
+## Konfigurasi Environment
+- `CI_ENVIRONMENT` — sudah diset ke `production` via env var Replit
+- `app.baseURL` — otomatis terdeteksi dari request (lihat `app/Config/App.php`)
+- Database: tidak perlu konfigurasi MySQL; app menggunakan SQLite langsung
 
-## Directory Structure
+## Deploy ke Hosting (Apache/cPanel)
+Langkah-langkah deployment ke shared hosting:
+
+1. Upload **semua file** kecuali `.git/` dan `.codex-tmp/`
+2. Arahkan **document root** ke folder `public/`
+3. Pastikan folder `writable/` memiliki permission **775** atau **777**
+4. Buat file `.env` di root project dengan isi:
+   ```
+   CI_ENVIRONMENT = production
+   app.baseURL = https://domain-anda.com/
+   encryption.key = hex2bin:GENERATE_DENGAN_php_spark_key_generate
+   ```
+5. Generate encryption key dengan perintah:
+   ```
+   php spark key:generate
+   ```
+   Lalu masukkan hasilnya ke `.env`
+6. Pastikan PHP 8.2+ dengan ekstensi: `pdo_sqlite`, `mbstring`, `intl`, `zip`
+
+## Struktur Penting
 ```
-app/          # Application code (Controllers, Models, Views, Config, etc.)
-public/       # Web root — point the server here
-system/       # CodeIgniter 4 framework core
-vendor/       # Composer dependencies
-.env          # Local environment config (not committed)
-env           # Template for .env
+app/
+  Config/         # Konfigurasi CI4 (Routes, Filters, Database, dll)
+  Controllers/    # Auth, Dashboard, Assets, Employees, Endpoints
+  Filters/        # AuthFilter (proteksi halaman login)
+  Libraries/      # AssetRepository, EmployeeRepository, EndpointRepository, XlsxExporter
+  Views/          # Halaman landing, dashboard, CRUD aset/karyawan/endpoint
+public/           # Web root (index.php, CSS, JS, gambar)
+system/           # CI4 framework core
+vendor/           # Composer dependencies (termasuk laminas-escaper)
+writable/
+  assets.sqlite   # Database SQLite (aset, karyawan, endpoint)
+  asset-dashboard-data.json  # Seed data aset
+  employee-seed.json         # Seed data karyawan
+  endpoint-seed.json         # Seed data endpoint
+  session/        # Penyimpanan sesi PHP
+  cache/          # Cache CI4
+  logs/           # Log error CI4
 ```
-
-## Notes
-- The debug toolbar makes XHR requests to `app.baseURL` — if you see CORS errors in the browser console, they come from the toolbar, not the app itself. Set `CI_ENVIRONMENT = production` in `.env` to disable it.
-- The `utils/` directory referenced in `composer.json` post-install scripts is a dev tooling directory (code style / linting) that is not required to run the app.
 
 ## User Preferences
 <!-- Record any user preferences here as you learn them -->

@@ -34,3 +34,8 @@ externalPort = 80
 [deployment]
 deploymentTarget = "autoscale"
 run = ["php", "-S", "0.0.0.0:5000", "-t", "public"]
+
+[userenv]
+
+[userenv.shared]
+CI_ENVIRONMENT = "production"
