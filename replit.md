@@ -45,13 +45,73 @@ php -S 0.0.0.0:5000 -t public
 
 > **Catatan keamanan:** Gunakan password minimal 16 karakter yang terdiri dari kombinasi huruf besar, huruf kecil, angka, dan simbol. Jangan pernah simpan password plaintext — hanya hash bcrypt-nya saja.
 
-## Deploy ke Hosting (Reserved VM / Apache/cPanel)
-Langkah-langkah deployment ke shared hosting:
 
-1. Upload **semua file** kecuali `.git/` dan `.codex-tmp/`
-2. Arahkan **document root** ke folder `public/`
-3. Pastikan folder `writable/` memiliki permission **775** atau **777**
-4. Buat file `.env` di root project dengan isi:
+## Deploy ke Hosting (Reserved VM / Apache/cPanel)
+
+### ⚠️ Penting: Database SQLite Tidak Ada di Git
+
+File `writable/assets.sqlite` **tidak di-commit ke Git** (ada di `.gitignore`). Hanya seed JSON yang ada di Git sebagai data awal. Saat pindah server atau `git pull` besar, database harus di-upload/restore manual.
+
+---
+
+### Migrasi Satu Kali: Melepas assets.sqlite dari Git
+
+Jika Anda sedang pada checkout **lama** (sebelum update ini) dan `assets.sqlite` masih di-track Git, lakukan langkah berikut **dari terminal** sebelum atau sebagai pengganti `git pull` biasa:
+
+**Opsi A — Pakai script (jika script sudah tersedia di checkout Anda):**
+```bash
+bash scripts/migrate-untrack-db.sh
+```
+Script ini otomatis: backup DB → lepas dari index Git (`git rm --cached`) → `git pull` → pulihkan DB jika terhapus → install post-merge hook.
+
+**Opsi B — Perintah manual (jika script belum ada di checkout lama):**
+```bash
+# 1. Backup database live (atomik via PHP VACUUM INTO)
+mkdir -p backups
+php -r "
+\$ts = date('Ymd_His');
+\$pdo = new PDO('sqlite:writable/assets.sqlite');
+\$pdo->exec('VACUUM INTO ' . \$pdo->quote(\"backups/assets_migration_{\$ts}.sqlite\"));
+echo 'Backup: backups/assets_migration_' . \$ts . '.sqlite' . PHP_EOL;
+"
+
+# 2. Lepaskan dari index Git agar pull tidak gagal karena file berubah
+git rm --cached writable/assets.sqlite
+
+# 3. Tarik update
+git pull
+
+# 4. Verifikasi DB masih ada (seharusnya tetap ada)
+ls -lh writable/assets.sqlite 2>/dev/null \
+  || echo "DB hilang — restore dengan: bash scripts/restore-db.sh backups/<file>.sqlite"
+```
+
+---
+
+### Backup Rutin Sebelum Deploy
+
+```bash
+bash scripts/backup-db.sh
+```
+
+Membuat snapshot atomik via `VACUUM INTO` ke `backups/` (aman saat aplikasi berjalan). Backup lama (>30 hari) dibersihkan otomatis.
+
+---
+
+### Deploy ke Shared Hosting Baru
+
+1. **Backup database** terlebih dahulu:
+   ```bash
+   bash scripts/backup-db.sh
+   ```
+
+2. Upload **semua file** kecuali `.git/`, `.codex-tmp/`, dan `backups/`
+
+3. Arahkan **document root** ke folder `public/`
+
+4. Pastikan folder `writable/` memiliki permission **775** atau **777**
+
+5. Buat file `.env` di root project:
    ```
    CI_ENVIRONMENT = production
    app.baseURL = https://domain-anda.com/
@@ -59,21 +119,37 @@ Langkah-langkah deployment ke shared hosting:
    ADMIN_USERNAME = admin
    ADMIN_PASSWORD_HASH = $2y$10$...hash...
    ```
-5. Generate encryption key: `php spark key:generate`
-6. Generate password hash baru: `php -r "echo password_hash('password_baru', PASSWORD_BCRYPT);"`
-7. Pastikan PHP 8.2+ dengan ekstensi: `pdo_sqlite`, `mbstring`, `intl`, `zip`
 
-## Backup Database SQLite
-Database SQLite (`writable/assets.sqlite`) berisi semua data live (aset, karyawan, endpoint).
-**Wajib backup sebelum deploy ulang** agar data tidak tertimpa:
+6. Generate encryption key: `php spark key:generate`
+
+7. Generate password hash: `php -r "echo password_hash('password_baru', PASSWORD_BCRYPT);"`
+
+8. **Upload database** ke `writable/assets.sqlite`:
+   - Via cPanel File Manager: upload file backup `.sqlite` ke `writable/assets.sqlite`
+   - Via SSH: `bash scripts/restore-db.sh backups/assets_YYYYMMDD_HHMMSS.sqlite`
+
+9. Pastikan PHP 8.2+ dengan ekstensi: `pdo_sqlite`, `mbstring`, `intl`, `zip`
+
+---
+
+### Restore Database
+
+> ⚠️ Hentikan web server sebelum restore. Script memvalidasi backup sumber, menyalin ke file temp, memvalidasi temp, lalu `mv` atomik. Jika gagal di tahap manapun, database lama otomatis dipulihkan.
 
 ```bash
-bash scripts/backup-db.sh
+bash scripts/restore-db.sh backups/assets_YYYYMMDD_HHMMSS.sqlite
 ```
 
-Backup disimpan di `writable/backups/` dengan nama berisi timestamp, dan otomatis dihapus setelah 30 hari.
+---
 
-> **Catatan:** File `assets.sqlite` sengaja di-track di git agar data awal tersedia saat deploy pertama ke server baru. Backup folder `writable/backups/` dikecualikan dari git.
+### Seed Data (Database Kosong / Server Baru)
+
+Jika tidak ada backup, seed JSON tersedia di:
+- `writable/asset-dashboard-data.json` — ringkasan aset
+- `writable/employee-seed.json` — data karyawan awal
+- `writable/endpoint-seed.json` — data endpoint awal
+
+File-file ini di-commit ke Git sehingga selalu tersedia di server baru.
 
 ## Struktur Penting
 ```
@@ -84,16 +160,20 @@ app/
   Libraries/      # AssetRepository, EmployeeRepository, EndpointRepository, XlsxExporter
   Views/          # Halaman landing, dashboard, CRUD aset/karyawan/endpoint
 public/           # Web root (index.php, CSS, JS, gambar)
+scripts/
+  backup-db.sh    # Backup database SQLite (VACUUM INTO, atomik)
+  restore-db.sh   # Restore database SQLite dengan WAL cleanup & integrity check
 system/           # CI4 framework core
 vendor/           # Composer dependencies (termasuk laminas-escaper)
 writable/
-  assets.sqlite   # Database SQLite (aset, karyawan, endpoint)
-  asset-dashboard-data.json  # Seed data aset
-  employee-seed.json         # Seed data karyawan
-  endpoint-seed.json         # Seed data endpoint
+  assets.sqlite          # Database SQLite (aset, karyawan, endpoint) — TIDAK di Git
+  asset-dashboard-data.json  # Seed data aset — di Git
+  employee-seed.json         # Seed data karyawan — di Git
+  endpoint-seed.json         # Seed data endpoint — di Git
   session/        # Penyimpanan sesi PHP
   cache/          # Cache CI4
   logs/           # Log error CI4
+backups/          # Backup database (TIDAK di Git)
 ```
 
 ## User Preferences

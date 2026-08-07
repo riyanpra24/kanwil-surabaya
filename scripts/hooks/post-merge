@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+# post-merge hook — pulihkan assets.sqlite jika terhapus oleh git merge/pull
+#
+# Install hook ini:
+#   bash scripts/migrate-untrack-db.sh   (otomatis)
+#   bash scripts/install-hooks.sh        (semua hooks)
+#   cp scripts/hooks/post-merge .git/hooks/post-merge && chmod +x .git/hooks/post-merge
+
+DB_FILE="writable/assets.sqlite"
+BACKUP_DIR="backups"
+
+if [ ! -f "$DB_FILE" ]; then
+    # Cari backup terbaru (hanya file bernama assets_YYYYMMDD_HHmmss.sqlite)
+    LATEST=$(ls -t "${BACKUP_DIR}"/assets_[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]_*.sqlite 2>/dev/null | head -1)
+
+    if [ -n "$LATEST" ] && [ -f "$LATEST" ]; then
+        echo "[post-merge] assets.sqlite tidak ditemukan. Memulihkan dari: $LATEST"
+
+        # Pastikan restore-db.sh tersedia (sudah ada di checkout baru)
+        if [ -x "scripts/restore-db.sh" ]; then
+            # Gunakan restore script yang aman (validasi + mv atomik)
+            # Tandai bahwa server mungkin masih berjalan — log saja, lanjutkan
+            bash scripts/restore-db.sh "$LATEST"
+        else
+            # Fallback: cp sederhana + hapus sidecar (restore script belum ada)
+            rm -f "${DB_FILE}-shm" "${DB_FILE}-wal" 2>/dev/null || true
+            cp "$LATEST" "$DB_FILE"
+            echo "[post-merge] ✅ Database dipulihkan dari: $LATEST"
+        fi
+    else
+        echo "[post-merge] ⚠️  assets.sqlite tidak ada dan tidak ada backup."
+        echo "[post-merge]    Jalankan aplikasi agar database baru terbentuk dari seed data."
+    fi
+fi
