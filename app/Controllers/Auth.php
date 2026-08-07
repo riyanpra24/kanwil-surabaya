@@ -4,14 +4,24 @@ namespace App\Controllers;
 
 class Auth extends BaseController
 {
-    private function getUsername(): string
+    private function getAdminUsername(): string
     {
-        return (string) (getenv('ADMIN_USERNAME') ?: 'admin');
+        $username = getenv('ADMIN_USERNAME');
+        if ($username === false || $username === '') {
+            log_message('error', 'ADMIN_USERNAME environment variable is not set.');
+            return '';
+        }
+        return $username;
     }
 
-    private function getPasswordHash(): string
+    private function getAdminPasswordHash(): string
     {
-        return (string) (getenv('ADMIN_PASSWORD_HASH') ?: '$2y$10$54m2Zhff1tj1crKWjMOr6ekfOrGVQlkVhzhBZd3ymixBDw0D1ocRO');
+        $hash = getenv('ADMIN_PASSWORD_HASH');
+        if ($hash === false || $hash === '') {
+            log_message('error', 'ADMIN_PASSWORD_HASH environment variable is not set.');
+            return '';
+        }
+        return $hash;
     }
 
     public function login()
@@ -25,17 +35,19 @@ class Auth extends BaseController
             return redirect()->to('/#login')->withInput()->with('errors', $this->validator->getErrors());
         }
 
-        $username = trim((string) $this->request->getPost('username'));
-        $password = (string) $this->request->getPost('password');
+        $username     = trim((string) $this->request->getPost('username'));
+        $password     = (string) $this->request->getPost('password');
+        $adminUser    = $this->getAdminUsername();
+        $adminHash    = $this->getAdminPasswordHash();
 
-        if (! hash_equals($this->getUsername(), $username) || ! password_verify($password, $this->getPasswordHash())) {
+        if ($adminUser === '' || $adminHash === '' || ! hash_equals($adminUser, $username) || ! password_verify($password, $adminHash)) {
             return redirect()->to('/#login')->withInput()->with('error', 'Username atau password tidak sesuai.');
         }
 
         session()->regenerate(true);
         session()->set([
             'isLoggedIn' => true,
-            'username'   => $username,
+            'username'   => $adminUser,
             'loginAt'    => date('d M Y, H:i'),
         ]);
 

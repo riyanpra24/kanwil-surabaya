@@ -11,7 +11,7 @@ Aplikasi web internal berbasis **CodeIgniter 4** untuk manajemen aset IT, data k
 - **Dependencies:** Composer (`vendor/` sudah ada, tidak perlu install ulang)
 
 ## Fitur Utama
-- Login dengan satu akun admin (kredensial di `app/Controllers/Auth.php`)
+- Login dengan satu akun admin (kredensial dibaca dari environment variable `ADMIN_USERNAME` dan `ADMIN_PASSWORD_HASH`)
 - Dashboard ringkasan aset & SDM
 - CRUD Data Aset IT
 - CRUD Data Karyawan per unit/cabang
@@ -28,6 +28,22 @@ php -S 0.0.0.0:5000 -t public
 - `CI_ENVIRONMENT` — sudah diset ke `production` via env var Replit
 - `app.baseURL` — otomatis terdeteksi dari request (lihat `app/Config/App.php`)
 - Database: tidak perlu konfigurasi MySQL; app menggunakan SQLite langsung
+- `ADMIN_USERNAME` — username login admin (simpan sebagai Replit Secret)
+- `ADMIN_PASSWORD_HASH` — bcrypt hash dari password admin (simpan sebagai Replit Secret)
+
+### Cara Mengganti Password Admin
+
+1. Generate bcrypt hash dari password baru menggunakan perintah berikut di terminal:
+   ```bash
+   php -r "echo password_hash('PASSWORD_BARU_ANDA', PASSWORD_BCRYPT, ['cost' => 10]);"
+   ```
+   Ganti `PASSWORD_BARU_ANDA` dengan password yang diinginkan.
+
+2. Salin output hash (dimulai dengan `$2y$10$...`) dan simpan sebagai nilai `ADMIN_PASSWORD_HASH` di Replit Secrets.
+
+3. Simpan username baru sebagai nilai `ADMIN_USERNAME` di Replit Secrets.
+
+> **Catatan keamanan:** Gunakan password minimal 16 karakter yang terdiri dari kombinasi huruf besar, huruf kecil, angka, dan simbol. Jangan pernah simpan password plaintext — hanya hash bcrypt-nya saja.
 
 ## Deploy ke Hosting (Apache/cPanel)
 Langkah-langkah deployment ke shared hosting:
