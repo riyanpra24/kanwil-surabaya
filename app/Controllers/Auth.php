@@ -4,8 +4,15 @@ namespace App\Controllers;
 
 class Auth extends BaseController
 {
-    private const USERNAME = 'admin';
-    private const PASSWORD_HASH = '$2y$10$54m2Zhff1tj1crKWjMOr6ekfOrGVQlkVhzhBZd3ymixBDw0D1ocRO';
+    private function getUsername(): string
+    {
+        return (string) (getenv('ADMIN_USERNAME') ?: 'admin');
+    }
+
+    private function getPasswordHash(): string
+    {
+        return (string) (getenv('ADMIN_PASSWORD_HASH') ?: '$2y$10$54m2Zhff1tj1crKWjMOr6ekfOrGVQlkVhzhBZd3ymixBDw0D1ocRO');
+    }
 
     public function login()
     {
@@ -21,14 +28,14 @@ class Auth extends BaseController
         $username = trim((string) $this->request->getPost('username'));
         $password = (string) $this->request->getPost('password');
 
-        if (! hash_equals(self::USERNAME, $username) || ! password_verify($password, self::PASSWORD_HASH)) {
+        if (! hash_equals($this->getUsername(), $username) || ! password_verify($password, $this->getPasswordHash())) {
             return redirect()->to('/#login')->withInput()->with('error', 'Username atau password tidak sesuai.');
         }
 
         session()->regenerate(true);
         session()->set([
             'isLoggedIn' => true,
-            'username'   => self::USERNAME,
+            'username'   => $username,
             'loginAt'    => date('d M Y, H:i'),
         ]);
 
