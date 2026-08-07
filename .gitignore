@@ -9,10 +9,15 @@ writable/debugbar/
 writable/uploads/
 writable/backups/
 
-# Database SQLite — file ini berisi data live.
-# Sengaja di-track di git agar data awal tersedia saat deploy pertama.
-# SEBELUM deploy ulang, jalankan: bash scripts/backup-db.sh
-# writable/assets.sqlite
+# Database SQLite — file live tidak di-commit ke Git.
+# Gunakan scripts/backup-db.sh dan scripts/restore-db.sh untuk pengelolaan backup.
+# Seed JSON (employee-seed.json, endpoint-seed.json, asset-dashboard-data.json) tetap di Git.
+writable/assets.sqlite
+writable/assets.sqlite-shm
+writable/assets.sqlite-wal
+
+# Backup database
+backups/
 
 # Vendor
 vendor/
