@@ -30,6 +30,7 @@ usort($yearSeries, static fn($a, $b) => (int) $a[0] <=> (int) $b[0]);
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-menu.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/account-menu.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-hero.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/color-theme.css') ?>">
 </head>
 
 <body>

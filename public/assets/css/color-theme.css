@@ -1,0 +1,145 @@
+/* =============================================
+   Color Theme Enhancements — Jamkrindo Kanwil
+   ============================================= */
+
+/* --- KPI Cards: Colored gradient backgrounds --- */
+.kpi-card.blue {
+    background: linear-gradient(135deg, #0875df 0%, #1a8ff7 100%);
+    border-color: transparent;
+    box-shadow: 0 12px 32px rgba(8, 117, 223, .32);
+}
+.kpi-card.navy {
+    background: linear-gradient(135deg, #0d2254 0%, #1a3e8c 100%);
+    border-color: transparent;
+    box-shadow: 0 12px 32px rgba(13, 34, 84, .30);
+}
+.kpi-card.green {
+    background: linear-gradient(135deg, #0d8c62 0%, #14b87c 100%);
+    border-color: transparent;
+    box-shadow: 0 12px 32px rgba(13, 140, 98, .30);
+}
+.kpi-card.orange {
+    background: linear-gradient(135deg, #c97812 0%, #ed8b28 100%);
+    border-color: transparent;
+    box-shadow: 0 12px 32px rgba(201, 120, 18, .30);
+}
+
+/* KPI card text: white on colored backgrounds */
+.kpi-card.blue span,
+.kpi-card.navy span,
+.kpi-card.green span,
+.kpi-card.orange span {
+    color: rgba(255, 255, 255, .75);
+}
+.kpi-card.blue strong,
+.kpi-card.navy strong,
+.kpi-card.green strong,
+.kpi-card.orange strong {
+    color: #fff;
+}
+.kpi-card.blue small,
+.kpi-card.navy small,
+.kpi-card.green small,
+.kpi-card.orange small {
+    color: rgba(255, 255, 255, .6);
+}
+.kpi-card.blue .kpi-icon,
+.kpi-card.navy .kpi-icon,
+.kpi-card.green .kpi-icon,
+.kpi-card.orange .kpi-icon {
+    background: rgba(255, 255, 255, .18);
+    color: #fff;
+}
+
+/* --- Analytics panels: Colored top accent borders --- */
+.category-panel  { border-top: 3px solid #0875df; }
+.condition-panel { border-top: 3px solid #18a777; }
+.lifecycle-panel { border-top: 3px solid #ed8b28; }
+.location-panel  { border-top: 3px solid #8b5cf6; }
+
+/* Location list bar color - purple accent */
+.location-list i b { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+/* --- Panel headers: colored eyebrow text variety --- */
+.lifecycle-panel header p  { color: #c97812; }
+.condition-panel header p  { color: #0d8c62; }
+.location-panel header p   { color: #7c3aed; }
+
+/* --- Dashboard topbar: subtle color left-border accent --- */
+.topbar {
+    border-left: 4px solid #0875df;
+}
+
+/* --- Sidebar nav active: more vibrant --- */
+.sidebar nav a.active,
+.sidebar nav a:hover {
+    background: linear-gradient(135deg, #0f83ec, #0564bf);
+    box-shadow: 0 6px 18px rgba(8, 100, 200, .40);
+}
+
+/* --- Lifecycle status dots: bigger and glowing --- */
+.expired  .status-dot { background: #e8505b; box-shadow: 0 0 0 4px rgba(232,80,91,.15); }
+.warning  .status-dot { background: #ed8b28; box-shadow: 0 0 0 4px rgba(237,139,40,.15); }
+.healthy  .status-dot { background: #18a777; box-shadow: 0 0 0 4px rgba(24,167,119,.15); }
+
+/* Lifecycle card accent borders */
+.lifecycle.expired { border-left: 3px solid #e8505b; }
+.lifecycle.warning { border-left: 3px solid #ed8b28; }
+.lifecycle.healthy { border-left: 3px solid #18a777; }
+
+/* --- Depreciation note: richer blue --- */
+.depreciation-note {
+    background: linear-gradient(135deg, #e8f3ff, #dbeeff);
+    border: 1px solid #bfd9ff;
+}
+
+/* --- Assets CRUD: Colored group chips per category --- */
+.group-chip { font-weight: 800; font-size: 7.5px; }
+
+/* Chip colors by content via attribute trick using JS-added data attrs */
+[data-chip="FURNITURE"]   { background: #fef3c7; color: #92400e; }
+[data-chip="TI"]          { background: #ede9fe; color: #5b21b6; }
+[data-chip="Peralatan"]   { background: #dcfce7; color: #166534; }
+[data-chip="PERALATAN"]   { background: #dcfce7; color: #166534; }
+[data-chip="MESIN"]       { background: #fee2e2; color: #991b1b; }
+[data-chip="KENDARAAN"]   { background: #e0f2fe; color: #075985; }
+[data-chip="RUMAH DINAS"] { background: #fce7f3; color: #9d174d; }
+[data-chip="TANAH"]       { background: #d1fae5; color: #065f46; }
+[data-chip="GEDUNG"]      { background: #f1f5f9; color: #334155; }
+
+/* --- CRUD topbar: colored accent --- */
+.crud-topbar {
+    border-bottom: 3px solid #0875df;
+    background: linear-gradient(135deg, #fff 85%, #f0f7ff 100%);
+}
+.crud-topbar small { font-weight: 800; }
+
+/* --- Filter button: more colorful --- */
+.filters button {
+    background: linear-gradient(135deg, #0875df, #0562be);
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(8,117,223,.25);
+}
+
+/* --- Add asset button: more vibrant --- */
+.add-button {
+    background: linear-gradient(135deg, #0875df, #1a8ff7);
+    box-shadow: 0 10px 28px rgba(8,117,223,.30);
+    padding: 13px 20px;
+}
+
+/* --- Table header: subtle blue tint --- */
+th { background: #f0f6ff; color: #4a6080; }
+
+/* --- Status badges: more vibrant --- */
+.status.used    { background: #dcfce7; color: #14532d; font-weight: 800; }
+.status.damaged { background: #fff7ed; color: #9a3412; font-weight: 800; }
+.status.lost    { background: #fff1f2; color: #9f1239; font-weight: 800; }
+
+/* Endpoint/employee monitoring page: colored section headers */
+.section-header, .monitoring-header {
+    background: linear-gradient(135deg, #0875df, #0562be);
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px 16px;
+}

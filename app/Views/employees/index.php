@@ -26,6 +26,7 @@ $statusClass = static function (?string $value): string {
     <link rel="stylesheet" href="<?= base_url('assets/css/shared-sidebar-pages.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/asset-modal.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/employee-crud.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/color-theme.css') ?>">
 </head>
 <body class="has-shared-sidebar">
 <?= view('partials/sidebar', ['sidebarActive' => 'employees', 'employeeUnit' => $unitSlug]) ?>

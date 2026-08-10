@@ -14,6 +14,7 @@ $topOperatingSystems = array_slice($summary['operatingSystems'], 0, 6, true);
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/dashboard-menu.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/assets-crud.css') ?>">
+    <link rel="stylesheet" href="<?= base_url('assets/css/color-theme.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/shared-sidebar-pages.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/endpoint-monitoring.css') ?>">
 </head>
