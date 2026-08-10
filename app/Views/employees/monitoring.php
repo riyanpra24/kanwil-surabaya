@@ -24,7 +24,6 @@ foreach (array_values($employeeSummary['statusGroups']) as $index => $count) {
     <link rel="stylesheet" href="<?= base_url('assets/css/assets-crud.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/shared-sidebar-pages.css') ?>">
     <link rel="stylesheet" href="<?= base_url('assets/css/sdm-dashboard.css') ?>">
-    <link rel="stylesheet" href="<?= base_url('assets/css/color-theme.css') ?>">
 </head>
 <body class="has-shared-sidebar">
 <?= view('partials/sidebar', ['sidebarActive' => 'employees', 'employeeUnit' => 'monitoring']) ?>
