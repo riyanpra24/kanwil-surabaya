@@ -27,9 +27,3 @@ $routes->get('data-karyawan/(:segment)', 'Employees::index/$1', ['filter' => 'au
 $routes->post('data-karyawan', 'Employees::store', ['filter' => ['auth', 'csrf']]);
 $routes->post('data-karyawan/(:num)', 'Employees::update/$1', ['filter' => ['auth', 'csrf']]);
 $routes->post('data-karyawan/(:num)/delete', 'Employees::delete/$1', ['filter' => ['auth', 'csrf']]);
-$routes->group('kelola-user', ['filter' => 'auth'], static function ($routes) {
-    $routes->get('', 'Users::index');
-    $routes->post('', 'Users::store', ['filter' => 'csrf']);
-    $routes->post('(:num)/ganti-password', 'Users::changePassword/$1', ['filter' => 'csrf']);
-    $routes->post('(:num)/hapus', 'Users::delete/$1', ['filter' => 'csrf']);
-});
