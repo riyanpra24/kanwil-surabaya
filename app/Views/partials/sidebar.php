@@ -55,6 +55,12 @@ $employeeLabels = $operationalLabels;
                 <a class="<?= $employeeUnit === 'data-sdm-jatim' ? 'selected' : '' ?>" href="<?= site_url('data-karyawan/data-sdm-jatim') ?>">Data SDM Jatim</a>
             </div>
         </div>
+        <?php if (session('isAdmin')): ?>
+        <a class="<?= $sidebarActive === 'users' ? 'active' : '' ?>" href="<?= site_url('kelola-user') ?>" data-sidebar-label="Kelola User">
+            <span class="nav-menu-symbol" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/><path d="M21 21v-2a4 4 0 0 0-3-3.85"/></svg></span>
+            <span class="sidebar-label">Kelola User</span>
+        </a>
+        <?php endif ?>
     </nav>
 </aside>
 <div class="logout-loader" role="status" aria-live="polite" aria-hidden="true">
